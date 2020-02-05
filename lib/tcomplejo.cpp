@@ -1,44 +1,59 @@
-#include <iostream> 
-using namespace std;
- 
-class TComplejo {
-   private:// Datos privados de la clase tcomplejo
-      double re, im; 
+#include <iostream>
 
-    //Constructor por defecto.
-      void TComplejo() {
-      }
-
-    //Constructor a partir de la parte real.
-      void TComplejo (double){
-      }
-
-    //Constructor a partir de la parte real e imaginaria
-      void TComplejo (double, double){
-      }
-
-    //Constructor copia
-      void TComplejo(Tcomplejo &){
-      }
-      
-    //Destructor      
-      ~TComplejo();
-
-//////////////////////METODOS///////////////////////////////////
+/**INICIO FORMA CANÓNICA**/
 
 
+//Constructor por defecto sin parámetros, inicializa re e im a cero.
+TComplejo::TComplejo(){
+	this->re = 0;
+	this->im = 0;
+}
 
-};
+//Constructor que inicializa la parte imaginaria a 0 y la real con un valor que le hemos pasado.
+TComplejo::TComplejo(double x){
+	this->re = x;
+	this->im = 0;
+}
 
+//Constructor a partir de la parte real e imaginaria.
+TComplejo::TComplejo(double r, double i){
+	this->re = r;
+	this->im = i;
+}
 
-/*int main() {
-   pareja par1;
-   int x, y;
-   
-   par1.Guarda(12, 32);
-   par1.Lee(x, y);
-   cout << "Valor de par1.a: " << x << endl;
-   cout << "Valor de par1.b: " << y << endl;
+//Constructor copia.
+TComplejo::TComplejo(TComplejo & copia){
+	this->re = copia.re;
+	this->im = copia.im;
+	/*
+	this->re = copia.Re();
+	this->im = copia.Im();
+	*/
+}
 
-   return 0;
-}*/
+//Desctructor que deja la parte real e imaginaria a 0
+TComplejo::~TComplejo(){
+	this->re = 0;
+	this->im = 0;
+}
+
+///////////////////////////////////// getters y setters //////////////////////////////
+//Get parte real - Coge parte real.
+double TComplejo::Re(){
+	return this->re;
+}
+
+//Get parte imaginaria - Coge parte imaginaria.
+double TComplejo::Im(){
+	return this->im;
+}
+
+//Set parte real - Modifica parte real.
+void TComplejo::Re(double r){
+	this->re = r;
+}
+
+//Set para parte imaginaria - Modifica parte imaginaria
+void TComplejo::Im(double i){
+	this->im = i;
+}
