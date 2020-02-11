@@ -20,8 +20,8 @@ class TComplejo{
 		TComplejo &operator = (TComplejo &); //Sobrecarga del operador de asignación.
 
 		/********Getters y setters******************/
-		double Re(); //Get parte real - Devuelve la parte real.
-		double Im(); //Get parte imaginario - Devuelve la parte imaginaria.
+		double Re() const; //Get parte real - Devuelve la parte real.
+		double Im() const; //Get parte imaginario - Devuelve la parte imaginaria.
 		void Re(double); //Set parte real - Modifica la parte real.
 		void Im(double); //Set parte imaginaria - Modifica la parte imaginaria.
 

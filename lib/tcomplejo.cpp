@@ -39,12 +39,12 @@ TComplejo::~TComplejo(){
 
 ///////////////////////////////////// getters y setters //////////////////////////////
 //Get parte real - Coge parte real.
-double TComplejo::Re(){
+double TComplejo::Re() const{
 	return this->re;
 }
 
 //Get parte imaginaria - Coge parte imaginaria.
-double TComplejo::Im(){
+const double TComplejo::Im() const{
 	return this->im;
 }
 
