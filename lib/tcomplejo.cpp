@@ -1,7 +1,9 @@
 #include <iostream>
+#include <math.h>
+#include "tcomplejo.h"
 
 /**INICIO FORMA CANÓNICA**/
-
+using namespace std;
 
 //Constructor por defecto sin parámetros, inicializa re e im a cero.
 TComplejo::TComplejo(){
@@ -37,6 +39,17 @@ TComplejo::~TComplejo(){
 	this->im = 0;
 }
 
+
+//Sobrecarga del operador de asignación
+TComplejo &TComplejo::operator=(const Tcomplejo &t){
+	if(this != &t){
+
+	}
+
+}
+
+/*FIN DE FORMA CANÓNICA*/
+
 ///////////////////////////////////// getters y setters //////////////////////////////
 //Get parte real - Coge parte real.
 double TComplejo::Re() const{
@@ -44,7 +57,7 @@ double TComplejo::Re() const{
 }
 
 //Get parte imaginaria - Coge parte imaginaria.
-const double TComplejo::Im() const{
+double TComplejo::Im() const{
 	return this->im;
 }
 
@@ -57,3 +70,42 @@ void TComplejo::Re(double r){
 void TComplejo::Im(double i){
 	this->im = i;
 }
+
+//Calcular el argumento (en Radianes)
+double TComplejo::Arg(){
+	double partereal = this->re;
+	double parteimaginaria = this->im;
+
+	//double partereal = copia.Re();
+	//double parteimaginaria = copia.Im();
+
+	double total;
+	total = atan2(partereal,parteimaginaria);
+	return total;
+}
+
+//Calcula el módulo
+double TComplejo::Mod(){
+	double partereal = this->re;
+	double parteimaginaria = this->im;
+
+	double realelevada = pow(partereal,2);
+	double imaginariaelevada = pow(parteimaginaria,2);
+	double total = realelevada+imaginariaelevada;
+
+	double modulo;
+	modulo = sqrt(total);
+	return modulo;
+}
+
+//IGUALDAD de números complejos.
+bool TComplejo::operator==(TComplejo & copia){
+
+}
+
+//DESIGUALDAD de números complejos.
+bool TComplejo::operator!=(TComplejo & copia){
+
+}
+
+
