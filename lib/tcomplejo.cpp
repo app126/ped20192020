@@ -41,14 +41,31 @@ TComplejo::~TComplejo(){
 
 
 //Sobrecarga del operador de asignación
-TComplejo &TComplejo::operator=(const Tcomplejo &t){
+TComplejo &TComplejo::operator=(const TComplejo &t){
 	if(this != &t){
 
 	}
 
 }
-
 /*FIN DE FORMA CANÓNICA*/
+
+
+////////////////////////SOBRECARGA DE OPERADORES ARITMETICOS.////////////////////////
+TComplejo TComplejo::operator+(const TComplejo &complejo){
+
+	TComplejo aux;
+	aux->re = complejo.re + this->re;
+	aux->im = complejo.im + this->im;
+	return aux;
+}
+
+TComplejo TComplejo::operator-(const TComplejo &complejo){
+	TComplejo aux;
+	aux->re = complejo.re - this->re;
+	aux->re = complejo.im - this.im;
+	return aux;
+
+}
 
 ///////////////////////////////////// getters y setters //////////////////////////////
 //Get parte real - Coge parte real.
