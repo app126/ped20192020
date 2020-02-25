@@ -43,7 +43,9 @@ TComplejo::~TComplejo(){
 //Sobrecarga del operador de asignación
 TComplejo &TComplejo::operator=(const TComplejo &t){
 	if(this != &t){
-
+		this->~TComplejo();
+		re = t.re;
+		im = t.im;
 	}
 
 }
@@ -51,23 +53,96 @@ TComplejo &TComplejo::operator=(const TComplejo &t){
 
 
 ////////////////////////SOBRECARGA DE OPERADORES ARITMETICOS.////////////////////////
-TComplejo TComplejo::operator+(const TComplejo &complejo){
+TComplejo TComplejo::operator+(const TComplejo &complejo) const{
 
 	TComplejo aux;
-	aux->re = complejo.re + this->re;
-	aux->im = complejo.im + this->im;
+	aux.Re(complejo.re + this->re);
+	aux.Im(complejo.im + this->im);
 	return aux;
 }
 
-TComplejo TComplejo::operator-(const TComplejo &complejo){
-	TComplejo aux;
-	aux->re = complejo.re - this->re;
-	aux->re = complejo.im - this.im;
-	return aux;
 
+TComplejo TComplejo::operator-(const TComplejo &complejo) const{
+	TComplejo aux;
+	aux.Re(complejo.re - this->re);
+	aux.Im(complejo.im - this->im);
+	return aux;
 }
 
-///////////////////////////////////// getters y setters //////////////////////////////
+TComplejo TComplejo::operator*(const TComplejo &a) const{
+	/*TComplejo aux;
+	aux.Re(a.re * this->re);
+	aux.Im(a.im * this->im);
+	return aux;*/
+	TComplejo aux;
+	aux.Re((Re()*a.Re())-(im*a.Im()));
+	aux.Re((Re()*a.Im())+(im*a.Re()));
+
+	return aux;
+}
+
+
+TComplejo TComplejo::operator+(const double d) const{
+	TComplejo aux(d);
+	aux.Re(this->re + d);
+	return aux;
+}
+
+TComplejo TComplejo::operator-(const double d) const{
+	TComplejo aux(d);
+	aux.Re(this->re - d);
+	return aux;
+}
+
+TComplejo TComplejo::operator*(const double d) const{
+/*
+	double ac;
+	double bd;
+	double ad;
+	double bc;
+	double real;
+	double imaginario;
+
+	ac = aux.re * this->re;
+	bd = aux.im * this->im;
+	ad = aux.re * this->im;
+	bc = aux.im * this->re;
+
+	real = ac-bd;
+	imaginario = ad+bc;*/
+	TComplejo t(d);
+	TComplejo aux;
+	aux = *this*t;
+	return aux;
+}
+
+///////////////////////////////////// OTROS OPERADORES//////////////////////////////
+bool TComplejo::operator==( const TComplejo &complejo) const{
+	/*bool igual = false;
+	if(complejo.re == this->re){
+		if(complejo.im == this->im){
+			igual = true;
+		}
+	}else{
+		igual = false;
+	}
+
+	return igual;*/
+
+	
+	if(this->re == complejo.re && this->im == complejo.im){
+		return true;
+	}else{
+		return false;
+	}
+	
+}
+
+bool TComplejo::operator!=( const TComplejo &complejo) const{
+	return !(*this == complejo);
+}
+
+
 //Get parte real - Coge parte real.
 double TComplejo::Re() const{
 	return this->re;
@@ -115,14 +190,32 @@ double TComplejo::Mod(){
 	return modulo;
 }
 
-//IGUALDAD de números complejos.
-bool TComplejo::operator==(TComplejo & copia){
 
+////////////////////FUNCIONES AMIGAS////////////////////////////
+
+ostream & operator<<(ostream &salida, const TComplejo &t) {
+	salida << "(";
+	salida << t.Re();
+	salida << " ";
+	salida << t.Im();
+	salida << ")";
+	return salida;
 }
 
-//DESIGUALDAD de números complejos.
-bool TComplejo::operator!=(TComplejo & copia){
-
+TComplejo operator+(double d, const TComplejo &complejo) {
+	TComplejo aux(d);
+	aux.operator+(complejo);
+	return aux;
 }
 
+TComplejo operator-(double d, const TComplejo &complejo) {
+	TComplejo aux(d);
+	aux.operator-(complejo);
+	return aux;
+}
 
+TComplejo operator*(double d, const TComplejo &complejo) {
+	TComplejo aux(d);
+	aux.operator*(complejo);
+	return aux;
+}
