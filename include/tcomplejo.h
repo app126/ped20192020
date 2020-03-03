@@ -42,7 +42,7 @@ class TComplejo{
 		///////////////////////////////////////////////////////////////////////////
 		/*FUNCIONES AMIGAS*/
 		//Sobrecarga del operador salida
-		friend ostream & operator <<(ostream &, TComplejo &);  //Hecho - constante tcomplejo
+		friend ostream & operator <<(ostream &, const TComplejo &);  //Hecho - constante tcomplejo
 
 		friend TComplejo operator+(double, const TComplejo &); //Hecho
 		friend TComplejo operator-(double, const TComplejo &); //Hecho

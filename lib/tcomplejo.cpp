@@ -167,12 +167,8 @@ void TComplejo::Im(double i){
 double TComplejo::Arg(){
 	double partereal = this->re;
 	double parteimaginaria = this->im;
-
-	//double partereal = copia.Re();
-	//double parteimaginaria = copia.Im();
-
 	double total;
-	total = atan2(partereal,parteimaginaria);
+	total = atan2(parteimaginaria,partereal);
 	return total;
 }
 
