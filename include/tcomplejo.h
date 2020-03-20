@@ -1,3 +1,6 @@
+#ifndef _TCOMPLEJO_H_
+#define _TCOMPLEJO_H_
+
 #include <iostream> 
 #include <stdio.h>
 #include <string.h>
@@ -48,3 +51,4 @@ class TComplejo{
 		friend TComplejo operator-(double, const TComplejo &); //Hecho
 		friend TComplejo operator*(double, const TComplejo &); //Hecho
 };
+#endif

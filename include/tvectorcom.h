@@ -1,9 +1,7 @@
-#include <iostream> 
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <vector>
+#ifndef _TVECTORCOM_H_
+#define _TVECTORCOM_H_
 
+#include "tcomplejo.h"
 
 using namespace std;
 
@@ -12,6 +10,7 @@ class TVectorCom{
 	private:
 		TComplejo *c;
 		int tamano;
+		TComplejo error;
 	public:
 	/////FORMA CANONICA//////
 		//Constructor por defecto.
@@ -19,7 +18,7 @@ class TVectorCom{
 		//Constructor que se le pasa un int (tamano)
 		TVectorCom(int);
 		//Constructor copia
-		TVectorCom(TVectorCom &);
+		TVectorCom(const TVectorCom &);
 		//Destructor
 		~TVectorCom();
 		//Operador de asignacion
@@ -33,7 +32,7 @@ class TVectorCom{
 		//Sobrecarga del operador de desigualdad
 		bool operator!=(const TVectorCom &) const;
 		//Sobrecarga del operador corchete (parte IZQUIERDA)
-		TComplejo & operator [](int);
+		TComplejo & operator[](int);
 		//Sobrecarga del operador corchete (parte DERECHA)
 		TComplejo operator[](int) const;
 		//Tamaño del vector (posiciones TOTALES)
@@ -48,4 +47,8 @@ class TVectorCom{
 		//REDIMENSIONAR el vector de TComplejo
 		bool Redimensionar(int);
 	/////////FIN DE METODOS///////
+
+		friend ostream & operator<<(ostream &, const TVectorCom &);
 };
+
+#endif
