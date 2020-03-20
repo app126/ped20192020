@@ -3,36 +3,56 @@
 using namespace std;
 
 #include "tvectorcom.h"
+#include "tcomplejo.h"
+#include "tlistacom.h"
 
 int
 main(void)
 {
-  TVectorCom a, b(1), c(5);
-  TVectorCom a1(a), b1(b), c1(c);
+  TVectorCom a(2);
+  TVectorCom b(4);
+  TVectorCom c(6);
 
-  cout << a.Tamano() << endl;
-  cout << b.Tamano() << endl;
-  cout << c.Tamano() << endl;
-  cout << a1.Tamano() << endl;
-  cout << b1.Tamano() << endl;
-  cout << c1.Tamano() << endl;
+  cout << "a: " << a << endl;
+  cout << "b: " << b << endl;
+  cout << "c: " << c << endl;
 
-  a.~TVectorCom();
-  b.~TVectorCom();
-  c.~TVectorCom();
-  a1.~TVectorCom();
-  b1.~TVectorCom();
-  c1.~TVectorCom();
+{
+  TComplejo a;
+  TComplejo b(a);
+  TComplejo c;
+  c = a;
+  
+  if(a == b)
+    cout << "SI" << endl;
+  else
+    cout << "NO" << endl;
 
-  cout << a.Tamano() << endl;
-  cout << b.Tamano() << endl;
-  cout << c.Tamano() << endl;
-  cout << a1.Tamano() << endl;
-  cout << b1.Tamano() << endl;
-  cout << c1.Tamano() << endl;
+  if(a == c)
+    cout << "SI" << endl;
+  else
+    cout << "NO" << endl;
 
-  return 0;
 
 }
+
+{
+  TComplejo a(1, -7);
+  TListaCom lc1, lc2;
+  
+  for (int i=0; i<5; i++) {
+         a = a + double(i);
+         lc1.InsCabeza(a);
+  }
+  
+  lc2=lc1;  
+  cout<<"l1="<<lc1<<endl;
+  lc1=lc1 + lc2;
+  cout << "lc1 = " << lc1 << endl;
+  
+}
+
+}
+
 
 

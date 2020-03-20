@@ -4,17 +4,8 @@
 /**INICIO FORMA CANÓNICA**/
 //Constructor por defecto.
 TListaNodo::TListaNodo(){
-	//Reservo memoria dinamicamente con new TComplejo();
-	//this->e = new TComplejo();
-
-	//¿QUé hago con los punteros anterior y siguiente?
-	//this->anterior = NULL;
-	//this->siguiente = NULL;
-
-	TComplejo init;
-	e=init;
-	anterior=NULL;
-	siguiente=NULL;
+	this->anterior=NULL;
+	this->siguiente=NULL;
 }
 
 //Constructor copia
@@ -80,10 +71,10 @@ TListaPos::TListaPos(const TListaPos & copia){
 
 //Destructor
 TListaPos::~TListaPos(){
-	if(pos){ //Si existe..
+	//if(pos){ //Si existe..
 		//delete [] pos; //pos lo borro con delete.
 		pos = NULL; // y despues lo asigno a null para que no se me quede apuntando a ninguna direcicon de memoria rara
-	}
+	//}
 }
 
 //Sobrecarga del operador de asignacion.
@@ -91,6 +82,7 @@ TListaPos & TListaPos::operator=( const TListaPos & t){
 	if(this != &t){
 		this->pos = t.pos;
 	}
+	return *this;
 }
 //////////////            FIN FORMA CANONICA
 
@@ -100,6 +92,8 @@ TListaPos & TListaPos::operator=( const TListaPos & t){
 bool TListaPos::operator==(const TListaPos & t) const{
 	if(this->pos == t.pos){
 		return true;
+	}else{
+		return false;
 	}
 }
 
@@ -112,7 +106,7 @@ bool TListaPos::operator!=(const TListaPos & t) const{
 TListaPos TListaPos::Anterior() const{
 	if(this->EsVacia() || this->pos->anterior == NULL){
 		TListaPos aux;
-		return aux;
+		return TListaPos();
 	}else{
 		TListaPos aux;
 		aux.pos = this->pos->anterior;
@@ -473,59 +467,45 @@ bool TListaCom::InsertarI(const TComplejo & tc, const TListaPos & t){
 }
 
 //Inserta el elemento a la derecha de la posicion indicada.
-bool TListaCom::InsertarD(const TComplejo & tc,const TListaPos & t){
+bool TListaCom::InsertarD(const TComplejo & complejo,const TListaPos & posicion){
 
+	if(!posicion.EsVacia()){
+		if(this->Longitud() == 1 || posicion == this->Ultima()){//La lista solo tiene un elemento.
+			TListaNodo *nodo = new TListaNodo();
+			nodo->e = complejo;
 
-	TListaPos auxPos = this->Primera();
+			nodo->anterior = posicion.pos;
+			nodo->siguiente = NULL;
+			this->ultimo = nodo;
+			posicion.pos->siguiente = nodo;
 
-	//Compruebo que el objeto TListaPos no es vacio y que la lista actual sea vacia.
-	//al haber sólo uno, se inserta con InsCabeza
-	if(t.EsVacia() || this->EsVacia()){
-		return false;
-		/*
-		this->InsCabeza(tc);
-		return true;
-		*/
-	}else if(this->Longitud() == 1){ //Si la lista tiene un solo elemento
-
-		return this->InsCabeza(tc); //lo inserto directamente en cabeza
-
-	}else{//Si no, muevo para insertarlo
-
-		//Creo un nuevo nodo
-		TListaNodo *nodo = new TListaNodo();
-
-		//se comprueba si se ha podido reservar memoria para tlistanodo nodo
-		if(nodo){
-
-			//Asigno el tcomplejo al nodo
-			nodo->e = tc;
-
-			//al anterior, le asigno el que me pasan
-			nodo->anterior = t.pos;
-
-			//Al siguiente le asigno el siguiente del que nos pasan
-			nodo->siguiente = t.pos->siguiente;
-
-			//Lo pongo a la derecha del t actual que nos mandan.
-			t.pos->siguiente = nodo;
-
-			//Si el siguiente no es el ultimo.
-			if(t.pos->siguiente != NULL){
-				//Asigno al actual el nodo
-				t.pos->siguiente->anterior = nodo;
-
-				//Asigno al siguiente el actual
-				t.pos->siguiente = nodo;
-			}else{
-				//Si es el último, lo asigno, por que es el último y no quedan mas
-				this->ultimo = nodo;
-			}
-
+			return true;
 		}
+		else{//Lista con mas de un elemento.
+			TListaPos aux = posicion.Siguiente();
+			TListaNodo *nodo = new TListaNodo();
+			nodo->e = complejo;
 
+			nodo->anterior = posicion.pos;
+
+			nodo->siguiente = aux.pos;
+
+			posicion.pos->siguiente = nodo;
+			
+			aux.pos->anterior = nodo;
+
+			return true;
+		}
+	}
+	else{
+		if(this->EsVacia()){
+			this->InsCabeza(complejo);
+
+			return true;
+		}
 	}
 
+	return false;
 
 }
 
@@ -721,40 +701,25 @@ return aux;
 
 //Devuelve true si el elemento está en la lista, false en caso contrario.
 bool TListaCom::Buscar(const TComplejo & t) const{
+    bool encontrado = false;
+    TListaPos pos = this->Primera();
 
-	bool encontrado = false;
-	TListaPos aux = this->Primera();
-
-	if(aux.pos->e == t){
+	if (pos.pos->e == t)
 		encontrado = true;
-	}else{ 
 
-		//Que la actual no sea vacia y que no se haya encontrado ya y que la siguiente no sea vacia
-		while(!aux.EsVacia() && encontrado == false && !aux.Siguiente().EsVacia() ){ 
-			aux = aux.Siguiente();
-			if(aux.pos->e == t){
-				encontrado = true;
-			}			
-	 	}
- 	}
+    while(!pos.Siguiente().EsVacia() && encontrado == false){
+    	pos = pos.Siguiente();
 
- 	return encontrado;
+    	if(pos.pos->e == t)
+    		encontrado = true;
+    }
+    
+    return encontrado;
 }
 
 //Devuelve la longitud de la lista
 int TListaCom::Longitud() const{
-	/*
-	int cont = 0;
 
-	TListaPos aux = this->Primera();
-
-	if(!aux.EsVacia()){ 
-		while(!aux.EsVacia()){
-			cont = cont + 1;
-		}
-	}
-
-	return cont;*/
     int tam = 0;
     TListaPos aux = this->Primera();
 
