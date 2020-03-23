@@ -148,99 +148,97 @@ bien recién destruido con el Destructor de TComplejo.*/
 //Cantidad de posiciones OCUPADAS (TComplejo NO VACIO) en el vector
 int TVectorCom::Ocupadas(){
 	int ocupadas = 0;
-	TComplejo aux;
-	for(int i=0;i<tamano;i++){
-		if((c[i].Re() != 0 && c[i].Im() != 0) && (this->c[i] != aux)){
-			ocupadas = ocupadas + 1;
-		}
 
+	TComplejo comp;
+
+	for (int i = 0; i < this->tamano; i++) {
+		if ((this->c[i] != comp) && !(this->c[i].Re() == 0 && this->c[i].Im() ==0 ))
+			ocupadas++;
 	}
+
+	return ocupadas;
 
 }
 
 //Devuelve TRUE si existe TComplejo en el vector.
-bool TVectorCom::ExisteCom(TComplejo & t){
+bool TVectorCom::ExisteCom(const TComplejo & t) const{
+	bool encontrado = false;
 
-	for(int i=0;i<this->tamano;i++){
-		if(c[i] == t){
-			return true;
-		}
+	for (int i = 0; (i < this->tamano) && (encontrado == false); i++) {
+		if (this->c[i] == t)
+			encontrado = true;
 	}
-	return false;
+
+	return encontrado;
 
 }
 
 //Mostrar por pantalla los elementos TComplejo del vector con PARTE REAL IGUAL 
 // O POSTERIOR al argumento.
 void TVectorCom::MostrarComplejos(double d){
-	int cont = 0;
+int cuantos = 0;
+
+	for (int i = 0; i < this->tamano; i++) {
+		if (this->c[i].Re() >= d) {
+			cuantos++;
+		}
+	}
 
 	cout << "[";
 
-	for(int i = 0 ; i < this->tamano ; i++){
-
-		if(c[i].Re() >= d){
-			cont=cont + 1;
-			if(cont>1){
-				cout << c[i] << ",";
-			}else{
-				cout << c[i]; //No sé si estará bien esto...
+	for (int i = 0; i < this->tamano; i++) {
+		if (this->c[i].Re() >= d && cuantos > 1) {
+			cout << this->c[i] << ", ";
+			cuantos--;
+		}
+		else {
+			if (this->c[i].Re() >= d) {
+				cout << this->c[i];
 			}
+		}
 	}
 
-	}
 	cout << "]";
 
 }
 
 //REDIMENSIONAR el vector TComplejo.
-bool TVectorCom::Redimensionar(int a){
+bool TVectorCom::Redimensionar(int newtam){
 
 // Si el entero es menor o igual que 0, el método devolverá FALSE, sin hacer nada más.
 // Si el entero es de igual tamaño que el actual del vector, el método devolverá FALSE, sin hacer
-//nada más.
-	if(a <= 0 || a == tamano){
+//nada más.	if (newtam <= 0)
+	if (newtam <= 0)
 		return false;
-	}
+	else {
+		if (newtam == this->tamano)//El nuevo tamaño es igual
+			return false;
+		else {
+			if (newtam > 0 && newtam > this->tamano) {//Nuevo tamaño mayor al que tenemos
+				TVectorCom aux(*this);
+				this->~TVectorCom();
+				this->tamano = newtam;
+				this->c = new TComplejo[newtam];
+				for (int i = 0; i < aux.tamano; i++) {
+					this->c[i] = aux.c[i];
+				}
 
-	if(a > 0 && a > tamano){
-		//Me creo un tamanio auxiliar igual al que me han pasado.
-		int aux = a;
+				return true;
 
-		//Me creo un vector auxiliar igual al actual.
-		TVectorCom vectorAux(*this);
+			} else {
+				if (newtam > 0 && newtam < this->tamano) {//Nuevo tamaño menor al que tenemos
+					TVectorCom aux(*this);
+					this->~TVectorCom();
+					this->tamano = newtam;
+					this->c = new TComplejo[newtam];
+					for (int i = 0; i < newtam; i++) {
+						this->c[i] = aux.c[i];
+					}
+				}
 
-		//Redimensiono el vector actual
-		this->tamano = a;
-
-		//Recorro un vector hasta aux (el anterior valor de a) y lo asigno gracias al vectorAux
-		for(int i = 0;i < aux;i++){
-			this->c[i] = vectorAux.c[i];
-		}
-
-		//Recorro desde el tamanio anterior hasta el tammanio total
-		for(int i = aux;i < a;i++){
-			this->c[i] = TComplejo();
-		}
-
-		//Devuelvo verdadero, ya que se ha hecho la redimension
-		return true;
-	}
-
-	// Si el entero es mayor que 0 y menor que el tamaño actual del vector, se deben eliminar los
-	// TComplejo que sobren por la derecha, dejando el nuevo tamaño igual al valor del entero.
-	if(a > 0 && a < tamano){
-		//Me creo un vector auxiliar igual al actual.
-		TVectorCom vectorAux(*this);
-		//TVectorCom vectorAux(*this);
-		this->~TVectorCom();
-		this->tamano = a;
-		this->c = new TComplejo[a];
-			for (int i = 0; i < a; i++) {
-				this->c[i] = vectorAux.c[i];
+				return true;
 			}
-		//this->c->erase(tamano,a);
-		return true;
+		}
 	}
 
 }

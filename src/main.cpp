@@ -3,56 +3,44 @@
 using namespace std;
 
 #include "tvectorcom.h"
-#include "tcomplejo.h"
-#include "tlistacom.h"
 
 int
 main(void)
 {
-  TVectorCom a(2);
-  TVectorCom b(4);
-  TVectorCom c(6);
-
-  cout << "a: " << a << endl;
-  cout << "b: " << b << endl;
-  cout << "c: " << c << endl;
-
-{
-  TComplejo a;
-  TComplejo b(a);
-  TComplejo c;
-  c = a;
-  
-  if(a == b)
-    cout << "SI" << endl;
+  TVectorCom a, b(3), c(5);
+  c[1] = 1;
+  c[2] = 2;
+  c[3] = 3;
+  c[4] = 4;
+  c[5] = 5;
+  c[6] = 6;
+  if(c.Redimensionar(0))
+	cout << "Redimensionado: " << c << endl;
   else
-    cout << "NO" << endl;
+	cout << "No Redimensionado: " << c << endl;
 
-  if(a == c)
-    cout << "SI" << endl;
+  if(c.Redimensionar(5))
+	cout << "Redimensionado: " << c << endl;
   else
-    cout << "NO" << endl;
+	cout << "No Redimensionado: " << c << endl;
 
+  if(c.Redimensionar(6))
+	cout << "Redimensionado: " << c << endl;
+  else
+	cout << "No Redimensionado: " << c << endl;
 
-}
+  if(c.Redimensionar(3))
+	cout << "Redimensionado: " << c << endl;
+  else
+	cout << "No Redimensionado: " << c << endl;
 
-{
-  TComplejo a(1, -7);
-  TListaCom lc1, lc2;
-  
-  for (int i=0; i<5; i++) {
-         a = a + double(i);
-         lc1.InsCabeza(a);
-  }
-  
-  lc2=lc1;  
-  cout<<"l1="<<lc1<<endl;
-  lc1=lc1 + lc2;
-  cout << "lc1 = " << lc1 << endl;
-  
-}
+  if(a.Redimensionar(3))
+	cout << "Redimensionado: " << a << endl;
+  else
+	cout << "No Redimensionado: " << a << endl;
+
+  return 0;
 
 }
-
 
 

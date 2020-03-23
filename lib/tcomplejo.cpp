@@ -54,18 +54,21 @@ TComplejo &TComplejo::operator=(const TComplejo &t){
 
 ////////////////////////SOBRECARGA DE OPERADORES ARITMETICOS.////////////////////////
 TComplejo TComplejo::operator+(const TComplejo &complejo) const{
-
 	TComplejo aux;
-	aux.Re(complejo.re + this->re);
-	aux.Im(complejo.im + this->im);
+
+	aux.Re(re+complejo.re);
+	aux.Im(im+complejo.im);
+
 	return aux;
 }
 
 
 TComplejo TComplejo::operator-(const TComplejo &complejo) const{
 	TComplejo aux;
-	aux.Re(complejo.re - this->re);
-	aux.Im(complejo.im - this->im);
+
+	aux.Re(re-complejo.re);
+	aux.Im(im-complejo.im);
+
 	return aux;
 }
 
@@ -80,55 +83,34 @@ TComplejo TComplejo::operator*(const TComplejo &a) const{
 
 	return aux;
 }
+     
 
-
-TComplejo TComplejo::operator+(const double d) const{
+TComplejo TComplejo::operator+( double d) const{
+	TComplejo temp;
 	TComplejo aux(d);
-	aux.Re(this->re + d);
-	return aux;
+
+	temp = *this+aux;
+	return temp;
 }
 
-TComplejo TComplejo::operator-(const double d) const{
+TComplejo TComplejo::operator-(double d) const{
+	TComplejo temp;
 	TComplejo aux(d);
-	aux.Re(this->re - d);
-	return aux;
+
+	temp = *this-aux;
+	return temp;
 }
 
-TComplejo TComplejo::operator*(const double d) const{
-/*
-	double ac;
-	double bd;
-	double ad;
-	double bc;
-	double real;
-	double imaginario;
+TComplejo TComplejo::operator*( double d) const{
 
-	ac = aux.re * this->re;
-	bd = aux.im * this->im;
-	ad = aux.re * this->im;
-	bc = aux.im * this->re;
-
-	real = ac-bd;
-	imaginario = ad+bc;*/
-	TComplejo t(d);
-	TComplejo aux;
-	aux = *this*t;
-	return aux;
+	TComplejo t;
+	t.re = this->re*d;
+	t.im = this->im*d;
+	return t;
 }
 
 ///////////////////////////////////// OTROS OPERADORES//////////////////////////////
 bool TComplejo::operator==( const TComplejo &complejo) const{
-	/*bool igual = false;
-	if(complejo.re == this->re){
-		if(complejo.im == this->im){
-			igual = true;
-		}
-	}else{
-		igual = false;
-	}
-
-	return igual;*/
-
 	
 	if(this->re == complejo.re && this->im == complejo.im){
 		return true;
@@ -199,19 +181,21 @@ ostream & operator<<(ostream &salida, const TComplejo &t) {
 }
 
 TComplejo operator+(double d, const TComplejo &complejo) {
+	TComplejo temp;
 	TComplejo aux(d);
-	aux.operator+(complejo);
-	return aux;
+	temp = aux+complejo;
+	return temp;
 }
 
 TComplejo operator-(double d, const TComplejo &complejo) {
+	TComplejo temp;
 	TComplejo aux(d);
-	aux.operator-(complejo);
-	return aux;
+	temp = aux-complejo;
+	return temp;
 }
 
 TComplejo operator*(double d, const TComplejo &complejo) {
-	TComplejo aux(d);
-	aux.operator*(complejo);
-	return aux;
+	TComplejo temp;
+	temp = complejo*d;
+	return temp;
 }

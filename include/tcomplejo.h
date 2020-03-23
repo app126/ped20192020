@@ -27,9 +27,9 @@ class TComplejo{
 		TComplejo operator+(const TComplejo &) const; //Sobrecarga operator+
 		TComplejo operator-(const TComplejo &) const; //Sobrecarga operator-
 		TComplejo operator*(const TComplejo &) const; //Sobrecarga operator*
-		TComplejo operator+(const double) const; //Sobrecarga operator+
-		TComplejo operator-(const double) const; //Sobrecarga operator-
-		TComplejo operator*(const double) const; //Sobrecarga operator*
+		TComplejo operator+( double) const; //Sobrecarga operator+
+		TComplejo operator-( double) const; //Sobrecarga operator-
+		TComplejo operator*( double) const; //Sobrecarga operator*
 		///////////////////////////////////////////////////////////////////////////*/
 		/*OTROS OPERADORES*/
 		bool operator==(const TComplejo &) const; //operator==

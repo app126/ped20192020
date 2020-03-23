@@ -40,7 +40,7 @@ class TVectorCom{
 		//Cantidad de posiciones OCUPADAS (TComplejo NO VACIO) en el vector.
 		int Ocupadas();
 		//Devuelve TRUE si existe el TComplejo en el vector.
-		bool ExisteCom(TComplejo &);
+		bool ExisteCom(const TComplejo &) const;
 		//Mostrar por pantalla los elementos TComplejo del vector con PARTE REAL IGUAL O POSTERIOR
 		// al argumento.
 		void MostrarComplejos(double);
