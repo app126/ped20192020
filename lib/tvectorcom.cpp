@@ -61,17 +61,27 @@ TVectorCom::~TVectorCom(){
 }
 
 //Sobrecarga del operador de asignación.
-TVectorCom &TVectorCom::operator=(const TVectorCom &t){
+TVectorCom &TVectorCom::operator=(const TVectorCom &vector){
 
 	//¿Le copio el puntero (la dirección a la que apunta) o el valor en un nuevo array de TVectorCom?
 	//¿O comparo uno a uno los valores y si no son iguales le pongo un flag y los copio?
 	//¿Serviría compararlo así? ¿El compilador hace una comparación profunda elemento a elemento?
-	if(this != &t){
-		this->tamano = t.tamano;
-		for(int i=0;i<this->tamano;i++){
-			c[i] = t.c[i];
+	if (this != &vector) {
+		this->~TVectorCom();
+
+		this->tamano = vector.tamano;
+		this->c = new TComplejo[vector.tamano];
+
+		if (!c)
+			cout << "Error" << endl;
+		else {
+			for (int i = 0; i < tamano; i++) {
+				c[i] = vector.c[i];
+			}
 		}
 	}
+
+	return *this;
 }
 
 ////////////////FIN DE FORMA CANONICA///////////////////////////
@@ -245,24 +255,20 @@ bool TVectorCom::Redimensionar(int newtam){
 
 
 ostream & operator<<(ostream &salida, const TVectorCom &vector) {
-
 	salida << "[";
-	if(vector.tamano == 0){
+
+	if (vector.tamano == 0) {
 		salida << "]";
-	}else if(vector.tamano == 1){
-		salida << "(1) " << vector.c[0]; 
-
-	}else{
-		for(int i = 0 ; i < vector.tamano - 1 ; i++){
-			salida << "(";
-			salida << i+1;
-			salida << ") ";
-			salida << vector.c[i] << ", ";		
-		}	
-
+	} else {
+		for (int i = 0; i < vector.tamano - 1; i++) {
+			salida << "(" << i + 1 << ") ";
+			salida << vector.c[i];
+			salida << ", ";
+		}
 		salida << "(" << vector.tamano << ") ";
 		salida << vector.c[vector.tamano - 1];
+		salida << "]";
 	}
-	salida << "]";
+
 	return salida;
 }

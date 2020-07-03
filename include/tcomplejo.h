@@ -40,8 +40,8 @@ class TComplejo{
 		void Re(double); //Set parte real - Modifica la parte real.
 		void Im(double); //Set parte imaginaria - Modifica la parte imaginaria.
 		/*************Otros métodos*******************************************/
-		double Arg(); // Calcula el argumento (En radianes)
-		double Mod(); //Calcula el módulo
+		double Arg() const; // Calcula el argumento (En radianes)
+		double Mod() const; //Calcula el módulo
 		///////////////////////////////////////////////////////////////////////////
 		/*FUNCIONES AMIGAS*/
 		//Sobrecarga del operador salida

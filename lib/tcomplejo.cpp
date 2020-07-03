@@ -146,7 +146,7 @@ void TComplejo::Im(double i){
 }
 
 //Calcular el argumento (en Radianes)
-double TComplejo::Arg(){
+double TComplejo::Arg() const{
 	double partereal = this->re;
 	double parteimaginaria = this->im;
 	double total;
@@ -155,7 +155,7 @@ double TComplejo::Arg(){
 }
 
 //Calcula el módulo
-double TComplejo::Mod(){
+double TComplejo::Mod() const{
 	double partereal = this->re;
 	double parteimaginaria = this->im;
 

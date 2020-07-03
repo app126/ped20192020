@@ -1,46 +1,41 @@
+/* Prueba:
+     ==, !=
+*/
+
 #include <iostream>
-
-using namespace std;
-
+#include "tavlcom.h"
+#include "tcomplejo.h"
 #include "tvectorcom.h"
+using namespace std;
 
 int
 main(void)
 {
-  TVectorCom a, b(3), c(5);
-  c[1] = 1;
-  c[2] = 2;
-  c[3] = 3;
-  c[4] = 4;
-  c[5] = 5;
-  c[6] = 6;
-  if(c.Redimensionar(0))
-	cout << "Redimensionado: " << c << endl;
-  else
-	cout << "No Redimensionado: " << c << endl;
+  TAVLCom a,b;
+  TComplejo c4(4,4),c8(8,8),c9(9,9),c10(10,10),c11(11,11),c12(12,12),c14(14,14);
+  
+  a.Insertar(c8);
+  a.Insertar(c12);
+  a.Insertar(c4);
+  a.Insertar(c9);
+  a.Insertar(c14);
+  a.Insertar(c10);
 
-  if(c.Redimensionar(5))
-	cout << "Redimensionado: " << c << endl;
+  b.Insertar(c8);
+  b.Insertar(c12);
+  b.Insertar(c4);
+  b.Insertar(c9);
+  b.Insertar(c14);
+  b.Insertar(c11);
+ 
+  if (a==b)
+    cout<<"iguales"<<endl;
   else
-	cout << "No Redimensionado: " << c << endl;
+    cout<<"diferentes"<<endl;
 
-  if(c.Redimensionar(6))
-	cout << "Redimensionado: " << c << endl;
+  if (a!=b)
+    cout<<"diferentes"<<endl;
   else
-	cout << "No Redimensionado: " << c << endl;
-
-  if(c.Redimensionar(3))
-	cout << "Redimensionado: " << c << endl;
-  else
-	cout << "No Redimensionado: " << c << endl;
-
-  if(a.Redimensionar(3))
-	cout << "Redimensionado: " << a << endl;
-  else
-	cout << "No Redimensionado: " << a << endl;
-
-  return 0;
+    cout<<"iguales"<<endl;
 
 }
-
-
